@@ -1,8 +1,10 @@
 language: android
 jdk: oraclejdk8
 sudo: required
+
 android:
   components:
+    - platform-tools
     - tools
     - extra-android-support
     - extra-android-m2repository
