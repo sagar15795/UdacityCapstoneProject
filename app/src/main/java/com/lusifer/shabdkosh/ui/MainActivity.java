@@ -1,4 +1,6 @@
-package com.lusifer.shabdkosh;
+package com.lusifer.shabdkosh.ui;
+
+import com.lusifer.shabdkosh.R;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
