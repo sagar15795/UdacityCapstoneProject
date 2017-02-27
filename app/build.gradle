@@ -18,9 +18,26 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+        debug {
+            versionNameSuffix " Debug"
+            debuggable true
+        }
     }
     lintOptions {
         abortOnError false
+    }
+    sourceSets {
+        debug {
+            java.srcDirs = ['src/debug/java', 'src/main/java/']
+
+            res.srcDirs = ['src/debug/res', 'src/main/res/']
+
+        }
+        release {
+            java.srcDirs = ['src/release/java', 'src/main/java/']
+
+            res.srcDirs = ['src/release/res', 'src/main/res/']
+        }
     }
 }
 
@@ -95,7 +112,6 @@ dependencies {
     testCompile "org.hamcrest:hamcrest-library:$HAMCREST_VERSION"
     testCompile "org.hamcrest:hamcrest-integration:$HAMCREST_VERSION"
     testCompile 'org.robolectric:robolectric:3.1'
-
 
 
 }
