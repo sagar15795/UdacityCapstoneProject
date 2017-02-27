@@ -5,7 +5,7 @@ import com.lusifer.shabdkosh.data.remote.BaseApiManager;
 
 public class DataManager {
 
-    private static DataManager INSTANCE = null;
+    private static DataManager sInstance = null;
     private BaseApiManager mBaseApiManager;
 
 
@@ -14,10 +14,10 @@ public class DataManager {
     }
 
     public static DataManager getDataManger() {
-        if (INSTANCE == null) {
-            return INSTANCE = new DataManager();
+        if (sInstance == null) {
+            return sInstance = new DataManager();
         } else {
-            return INSTANCE;
+            return sInstance;
         }
     }
 
