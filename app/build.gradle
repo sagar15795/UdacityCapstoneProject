@@ -79,6 +79,8 @@ dependencies {
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'io.reactivex:rxjava:1.1.6'
 
+    compile 'com.github.arimorty:floatingsearchview:2.0.3'
+
     debugCompile "com.facebook.stetho:stetho:$STETHO_VERSION"
     debugCompile "com.facebook.stetho:stetho-okhttp3:$STETHO_VERSION"
 
