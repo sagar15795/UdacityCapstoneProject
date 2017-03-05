@@ -6,11 +6,12 @@ import com.lusifer.shabdkosh.ui.base.BasePresenter;
 
 import rx.Subscription;
 
-class MainPresenter extends BasePresenter<MainContracts.View>
-        implements MainContracts.Presenter {
+class MainPresenter extends BasePresenter<MainContracts.View> implements MainContracts.Presenter {
 
-    private static final String TAG = "LatestFeedPresenter";
-    private static MainPresenter mainPresenter = null;
+    private static final String TAG = MainPresenter.class.getSimpleName();
+
+    private static MainPresenter instance = null;
+
     private Subscription mSubscriptions;
     private DataManager mDataManager;
 
@@ -19,10 +20,10 @@ class MainPresenter extends BasePresenter<MainContracts.View>
     }
 
     public static MainPresenter getMainPresenter(DataManager dataManager) {
-        if (mainPresenter == null) {
-            mainPresenter = new MainPresenter(dataManager);
+        if (instance == null) {
+            instance = new MainPresenter(dataManager);
         }
-        return mainPresenter;
+        return instance;
     }
 
     @Override

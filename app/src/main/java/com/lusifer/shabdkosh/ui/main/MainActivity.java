@@ -6,15 +6,15 @@ import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.ui.adapter.ViewPagerAdapter;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements MainContracts.View{
+public class MainActivity extends AppCompatActivity implements MainContracts.View {
 
     @BindView(R.id.floating_search_view)
     FloatingSearchView mFloatingSearchView;
