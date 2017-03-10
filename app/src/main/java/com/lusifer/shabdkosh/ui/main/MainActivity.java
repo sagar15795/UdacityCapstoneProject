@@ -5,6 +5,8 @@ import com.arlib.floatingsearchview.FloatingSearchView;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.ui.adapter.ViewPagerAdapter;
+import com.lusifer.shabdkosh.ui.favourite.FavouriteFragment;
+import com.lusifer.shabdkosh.ui.recent.RecentFragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
         mMainPresenter.attachView(this);
 
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        mViewPagerAdapter.addFragment(RecentFragment.getInstance(),"Recent");
+        mViewPagerAdapter.addFragment(FavouriteFragment.getInstance(),"Favourite");
+
         mViewPager.setAdapter(mViewPagerAdapter);
 
         mTabLayout.setupWithViewPager(mViewPager);
