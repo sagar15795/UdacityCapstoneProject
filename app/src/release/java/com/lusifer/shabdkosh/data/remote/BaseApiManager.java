@@ -25,7 +25,7 @@ public class BaseApiManager {
         return retrofit.create(clazz);
     }
 
-    public ShabdkoshService getWPApi() {
+    public ShabdkoshService getWordApi() {
         return createJsonApi(ShabdkoshService.class, WP_API_URL);
     }
 
