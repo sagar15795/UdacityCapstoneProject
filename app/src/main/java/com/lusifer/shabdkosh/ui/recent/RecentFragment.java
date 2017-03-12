@@ -3,7 +3,10 @@ package com.lusifer.shabdkosh.ui.recent;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
+import com.lusifer.shabdkosh.ui.detail.DetailActivity;
+import com.lusifer.shabdkosh.utils.RecyclerItemClickListner;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -20,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecentFragment extends Fragment implements RecentContract.View {
+public class RecentFragment extends Fragment implements RecentContract.View, RecyclerItemClickListner.OnItemClickListener {
 
     @BindView(R.id.rvRecentList)
     RecyclerView mRecentRecylerView;
@@ -55,6 +58,7 @@ public class RecentFragment extends Fragment implements RecentContract.View {
                 (mRecentRecylerView.getContext(),
                         layoutManager.getOrientation());
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
+        mRecentRecylerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(),this));
         mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
 
         return rootView;
@@ -79,6 +83,18 @@ public class RecentFragment extends Fragment implements RecentContract.View {
         title.add("word4");
         title.add("word5");
         return title;
+    }
+
+
+    @Override
+    public void onItemClick(View childView, int position) {
+        Intent intent = new Intent(getActivity(), DetailActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongPress(View childView, int position) {
+
     }
 
 
