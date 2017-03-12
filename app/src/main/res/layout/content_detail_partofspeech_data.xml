@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_data_partofspeech"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tvId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        tools:text="1."/>
+
+    <TextView
+        android:id="@+id/tvWordDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/tvId"
+        android:layout_toEndOf="@id/tvId"
+        android:layout_toRightOf="@id/tvId"
+        android:textColor="@color/black"
+        tools:text="Lorskjvsdjgvjdfgvkjxzhcmnxcbvmbjhvxcubz dsfbvjkcxbjkbdjkfskjvcxhkjhkjdhvzcxkj kjhkdsjhkvjcxzbjbbcxjvbjkxcbvjkkjkxvjcjkcvxhkjkvjcx
+kjvhkjxchkjkjkxvc"/>
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flSynonyms"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvWordDescription"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@id/tvId"
+        android:layout_toRightOf="@id/tvId"
+        app:showDivider="middle"
+        app:dividerDrawable="@drawable/divider_flex"
+        app:justifyContent="flex_start"
+        app:alignContent="flex_start"
+        app:alignItems="flex_start"
+        app:flexDirection="row"
+        app:flexWrap="wrap"/>
+
+    <View
+        android:id="@+id/vDividerDescription"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@id/tvId"
+        android:layout_alignStart="@id/tvId"
+        android:layout_below="@id/flSynonyms"
+        android:layout_marginTop="8dp"
+        android:background="#12000000"/>
+
+</RelativeLayout>
