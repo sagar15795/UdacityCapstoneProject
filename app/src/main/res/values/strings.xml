@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Shabdkosh</string>
+    <string name="string_synonyms">Synonyms:</string>
+    <string name="string_id">%d.</string>
 </resources>
