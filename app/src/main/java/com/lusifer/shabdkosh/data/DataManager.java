@@ -1,7 +1,10 @@
 package com.lusifer.shabdkosh.data;
 
 
+import com.lusifer.shabdkosh.data.model.Word;
 import com.lusifer.shabdkosh.data.remote.BaseApiManager;
+
+import rx.Observable;
 
 public class DataManager {
 
@@ -19,6 +22,11 @@ public class DataManager {
         } else {
             return sInstance;
         }
+    }
+
+
+    public Observable<Word> getWord(String word) {
+        return mBaseApiManager.getWordApi().getWord(word);
     }
 
 }
