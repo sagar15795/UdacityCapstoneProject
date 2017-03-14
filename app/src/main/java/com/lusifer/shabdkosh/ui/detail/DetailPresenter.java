@@ -11,7 +11,8 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class DetailPresenter extends BasePresenter<DetailContract.View> implements DetailContract.Presenter {
+public class DetailPresenter extends BasePresenter<DetailContract.View> implements DetailContract
+        .Presenter {
     private static final String TAG = DetailPresenter.class.getSimpleName();
 
     private static DetailPresenter instance = null;
@@ -43,7 +44,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
     }
 
     @Override
-    public void getWord(String word){
+    public void getWord(String word) {
         mSubscriptions = mDataManager.getWord(word)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -60,8 +61,6 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
 
                     @Override
                     public void onNext(Word word) {
-                        Log.e(TAG, "onNext: "+word.getPronunciation().getAll());
-
                         getMvpView().setWord(word);
                     }
                 });
