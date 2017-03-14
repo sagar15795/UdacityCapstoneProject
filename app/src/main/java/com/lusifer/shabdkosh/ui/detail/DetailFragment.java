@@ -10,7 +10,6 @@ import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -94,9 +93,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
             ((DetailActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-
-        inflater = (LayoutInflater) getContext().getSystemService(
-                Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 
     }
@@ -140,8 +137,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
                     textView.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            Intent intent =new Intent(getActivity(),DetailActivity.class);
-                            startActivity(intent);
+                            Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            ((DetailActivity) getActivity()).startActivity(intent);
                         }
                     });
                 } else {
@@ -188,8 +185,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     @Override
     public void setWord(Word word) {
-
-        Log.e("TAG", "setWord: " + getGroupedResult(word.getResults()).size());
 
         HashMap<String, List<Result>> result = getGroupedResult(word.getResults());
         String string = "";
