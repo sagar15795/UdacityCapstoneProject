@@ -5,4 +5,22 @@
     <dimen name="search_view_inset">5dp</dimen>
     <dimen name="main_appbar_height">100dp</dimen>
     <dimen name="main_appbar_top_padding">5dp</dimen>
+    <dimen name="word_margin_left">16dp</dimen>
+    <dimen name="word_margin_top">12dp</dimen>
+    <dimen name="word_text_size">24sp</dimen>
+    <dimen name="pronounce_margin_left">16dp</dimen>
+    <dimen name="pronounce_margin_top">3dp</dimen>
+    <dimen name="pronounce_text_size">18sp</dimen>
+    <dimen name="divider_height">1dp</dimen>
+    <dimen name="divider_margin_top">12dp</dimen>
+    <dimen name="partofspeech_margin_left">16dp</dimen>
+    <dimen name="partofspeech_margin_top">16dp</dimen>
+    <dimen name="partofspeech_divider_margin_top">8dp</dimen>
+    <dimen name="id_margin_left">18dp</dimen>
+    <dimen name="id_margin_top">8dp</dimen>
+    <dimen name="flexbox_margin_top">8dp</dimen>
+    <dimen name="divider_description_height">1dp</dimen>
+    <dimen name="divider_description_margin_top">8dp</dimen>
+    <dimen name="item_word_text_size">24sp</dimen>
+    <dimen name="item_partofspeech_text_size">16sp</dimen>
 </resources>

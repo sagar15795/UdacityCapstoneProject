@@ -10,9 +10,9 @@
         android:id="@+id/tvPartOfSpeech"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginLeft="@dimen/partofspeech_margin_left"
+        android:layout_marginStart="@dimen/partofspeech_margin_left"
+        android:layout_marginTop="@dimen/partofspeech_margin_top"
         android:textColor="#60000000"
         tools:text="noun"/>
 
@@ -24,7 +24,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_height="@dimen/divider_height"
+        android:layout_marginTop="@dimen/partofspeech_divider_margin_top"
         android:background="#12000000"/>
 </LinearLayout>

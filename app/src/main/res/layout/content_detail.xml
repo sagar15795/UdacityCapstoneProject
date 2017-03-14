@@ -18,28 +18,28 @@
             android:id="@+id/tvWord"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginLeft="@dimen/word_margin_left"
+            android:layout_marginStart="@dimen/word_margin_left"
+            android:layout_marginTop="@dimen/word_margin_top"
             android:textColor="@color/black"
-            android:textSize="24sp"
+            android:textSize="@dimen/word_text_size"
             tools:text="fea·ture"/>
 
         <TextView
             android:id="@+id/tvPronounce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="3dp"
-            android:textSize="18sp"
+            android:layout_marginLeft="@dimen/pronounce_margin_left"
+            android:layout_marginStart="@dimen/pronounce_margin_left"
+            android:layout_marginTop="@dimen/pronounce_margin_top"
+            android:textSize="@dimen/pronounce_text_size"
             tools:text="/‘fitʃər/"/>
 
         <View
             android:background="#12000000"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="12dp"/>
+            android:layout_height="@dimen/divider_height"
+            android:layout_marginTop="@dimen/divider_margin_top"/>
 
         <LinearLayout
             android:id="@+id/vDetailPartOfSpeech"
