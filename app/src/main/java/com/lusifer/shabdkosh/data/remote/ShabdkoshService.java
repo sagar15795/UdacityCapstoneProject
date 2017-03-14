@@ -12,6 +12,6 @@ import rx.Observable;
 public interface ShabdkoshService {
 
     @GET(APIEndPointConstant.WORDS)
-    @Headers({"X-Mashape-Key:"+ BuildConfig.API_KEY})
+    @Headers({APIEndPointConstant.HEADER_MASHAPE_KEY+ BuildConfig.API_KEY})
     Observable<Word> getWord(@Path(APIEndPointConstant.PATH_WORD) String word);
 }
