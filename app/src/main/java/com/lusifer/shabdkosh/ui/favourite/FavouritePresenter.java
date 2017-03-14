@@ -5,7 +5,8 @@ import com.lusifer.shabdkosh.ui.base.BasePresenter;
 
 import rx.Subscription;
 
-public class FavouritePresenter extends BasePresenter<FavouriteContract.View> implements FavouriteContract.Presenter {
+public class FavouritePresenter extends BasePresenter<FavouriteContract.View> implements
+        FavouriteContract.Presenter {
     private static final String TAG = FavouritePresenter.class.getSimpleName();
 
     private static FavouritePresenter instance = null;

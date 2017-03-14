@@ -1,17 +1,17 @@
 package com.lusifer.shabdkosh.ui.main;
 
 
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.ui.adapter.ViewPagerAdapter;
 import com.lusifer.shabdkosh.ui.favourite.FavouriteFragment;
 import com.lusifer.shabdkosh.ui.recent.RecentFragment;
-
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
 
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        mViewPagerAdapter.addFragment(RecentFragment.getInstance(),"Recent");
-        mViewPagerAdapter.addFragment(FavouriteFragment.getInstance(),"Favourite");
+        mViewPagerAdapter.addFragment(RecentFragment.getInstance(), "Recent");
+        mViewPagerAdapter.addFragment(FavouriteFragment.getInstance(), "Favourite");
 
         mViewPager.setAdapter(mViewPagerAdapter);
 

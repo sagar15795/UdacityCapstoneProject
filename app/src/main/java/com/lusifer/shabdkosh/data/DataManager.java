@@ -1,7 +1,7 @@
 package com.lusifer.shabdkosh.data;
 
 
-import com.lusifer.shabdkosh.data.model.Word;
+import com.lusifer.shabdkosh.data.model.WordDetail;
 import com.lusifer.shabdkosh.data.remote.BaseApiManager;
 
 import rx.Observable;
@@ -25,7 +25,7 @@ public class DataManager {
     }
 
 
-    public Observable<Word> getWord(String word) {
+    public Observable<WordDetail> getWord(String word) {
         return mBaseApiManager.getWordApi().getWord(word);
     }
 

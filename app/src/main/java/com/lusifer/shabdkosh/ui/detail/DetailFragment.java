@@ -21,7 +21,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.Result;
-import com.lusifer.shabdkosh.data.model.Word;
+import com.lusifer.shabdkosh.data.model.WordDetail;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -184,19 +184,19 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
 
     @Override
-    public void setWord(Word word) {
+    public void setWord(WordDetail wordDetail) {
 
-        HashMap<String, List<Result>> result = getGroupedResult(word.getResults());
+        HashMap<String, List<Result>> result = getGroupedResult(wordDetail.getResults());
         String string = "";
-        for (int i = 0; i < word.getSyllables().getList().size(); i++) {
-            if (i != word.getSyllables().getList().size() - 1) {
-                string += word.getSyllables().getList().get(i) + "\u00B7";
+        for (int i = 0; i < wordDetail.getSyllables().getList().size(); i++) {
+            if (i != wordDetail.getSyllables().getList().size() - 1) {
+                string += wordDetail.getSyllables().getList().get(i) + "\u00B7";
             } else {
-                string += word.getSyllables().getList().get(i);
+                string += wordDetail.getSyllables().getList().get(i);
             }
         }
         tvWord.setText(string);
-        tvPronounce.setText(String.format("/%s/", word.getPronunciation().getAll()));
+        tvPronounce.setText(String.format("/%s/", wordDetail.getPronunciation().getAll()));
         List<String> l = new ArrayList<String>(result.keySet());
 
         for (int i = 0; i < l.size(); i = i + 2) {

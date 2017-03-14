@@ -1,11 +1,5 @@
 package com.lusifer.shabdkosh.ui.recent;
 
-import com.lusifer.shabdkosh.R;
-import com.lusifer.shabdkosh.data.DataManager;
-import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
-import com.lusifer.shabdkosh.ui.detail.DetailActivity;
-import com.lusifer.shabdkosh.utils.RecyclerItemClickListner;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,13 +11,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.lusifer.shabdkosh.R;
+import com.lusifer.shabdkosh.data.DataManager;
+import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
+import com.lusifer.shabdkosh.ui.detail.DetailActivity;
+import com.lusifer.shabdkosh.utils.RecyclerItemClickListner;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RecentFragment extends Fragment implements RecentContract.View, RecyclerItemClickListner.OnItemClickListener {
+public class RecentFragment extends Fragment implements RecentContract.View,
+        RecyclerItemClickListner.OnItemClickListener {
 
     @BindView(R.id.rvRecentList)
     RecyclerView mRecentRecylerView;
@@ -54,11 +55,11 @@ public class RecentFragment extends Fragment implements RecentContract.View, Rec
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecentRecylerView.setLayoutManager(layoutManager);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration
-                (mRecentRecylerView.getContext(),
-                        layoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                mRecentRecylerView.getContext(), layoutManager.getOrientation());
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
-        mRecentRecylerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(),this));
+        mRecentRecylerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(),
+                this));
         mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
 
         return rootView;

@@ -1,9 +1,7 @@
 package com.lusifer.shabdkosh.ui.detail;
 
-import android.util.Log;
-
 import com.lusifer.shabdkosh.data.DataManager;
-import com.lusifer.shabdkosh.data.model.Word;
+import com.lusifer.shabdkosh.data.model.WordDetail;
 import com.lusifer.shabdkosh.ui.base.BasePresenter;
 
 import rx.Observer;
@@ -48,7 +46,7 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
         mSubscriptions = mDataManager.getWord(word)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<Word>() {
+                .subscribe(new Observer<WordDetail>() {
                     @Override
                     public void onCompleted() {
 
@@ -60,8 +58,8 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
                     }
 
                     @Override
-                    public void onNext(Word word) {
-                        getMvpView().setWord(word);
+                    public void onNext(WordDetail wordDetail) {
+                        getMvpView().setWord(wordDetail);
                     }
                 });
     }

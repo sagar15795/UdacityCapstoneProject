@@ -1,12 +1,12 @@
 package com.lusifer.shabdkosh.ui.detail;
 
-import com.lusifer.shabdkosh.data.model.Word;
+import com.lusifer.shabdkosh.data.model.WordDetail;
 import com.lusifer.shabdkosh.ui.base.MvpView;
 
 public interface DetailContract {
 
     interface View extends MvpView {
-        void setWord(Word word);
+        void setWord(WordDetail wordDetail);
     }
 
     interface Presenter {

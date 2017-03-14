@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 
-public class Word {
+public class WordDetail {
 
     @SerializedName("frequency")
     private Double frequency;

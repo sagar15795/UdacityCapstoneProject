@@ -1,4 +1,5 @@
 package com.lusifer.shabdkosh.ui.base;
+
 /**
  * Base interface that any class that wants to act as a View in the MVP (Model View Presenter)
  * pattern must implement. Generally this interface will be extended by a more specific interface

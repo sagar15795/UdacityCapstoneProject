@@ -1,12 +1,12 @@
 package com.lusifer.shabdkosh.ui.adapter;
 
-import com.lusifer.shabdkosh.R;
-
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.lusifer.shabdkosh.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +15,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class RecentFavouriteAdapter extends RecyclerView.Adapter<RecentFavouriteAdapter.ViewHolder> {
+public class RecentFavouriteAdapter extends RecyclerView.Adapter<RecentFavouriteAdapter
+        .ViewHolder> {
 
     private List<String> mTitleList, mPartOfSpeechList;
 

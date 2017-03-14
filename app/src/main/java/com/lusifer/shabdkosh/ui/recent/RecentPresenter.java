@@ -5,7 +5,8 @@ import com.lusifer.shabdkosh.ui.base.BasePresenter;
 
 import rx.Subscription;
 
-public class RecentPresenter extends BasePresenter<RecentContract.View> implements RecentContract.Presenter {
+public class RecentPresenter extends BasePresenter<RecentContract.View> implements RecentContract
+        .Presenter {
     private static final String TAG = RecentPresenter.class.getSimpleName();
 
     private static RecentPresenter instance = null;
