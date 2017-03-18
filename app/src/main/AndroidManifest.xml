@@ -23,6 +23,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.main.MainActivity"/>
         </activity>
+
+        <provider
+            android:authorities="com.lusifer.shabdkosh"
+            android:exported="true"
+            android:name=".data.local.ShabdkoshDatabase_Provider"/>
     </application>
 
 </manifest>
