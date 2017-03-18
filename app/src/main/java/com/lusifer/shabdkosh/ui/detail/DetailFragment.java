@@ -68,7 +68,9 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDetailPresenter = DetailPresenter.getDetailPresenter(DataManager.getDataManger());
+        mDetailPresenter = DetailPresenter.getDetailPresenter(DataManager.getDataManger
+                (getActivity().getContentResolver()));
+
     }
 
     @Override
@@ -94,7 +96,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }
 
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
 
     }
 
@@ -222,5 +223,6 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }
         return hashMap;
     }
+
 
 }
