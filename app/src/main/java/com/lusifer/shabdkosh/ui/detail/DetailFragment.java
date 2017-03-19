@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +27,8 @@ import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.word.Result;
 import com.lusifer.shabdkosh.data.model.word.WordDetail;
+import com.lusifer.shabdkosh.ui.SplashActivity;
+import com.lusifer.shabdkosh.ui.main.MainActivity;
 import com.lusifer.shabdkosh.ui.widget.WidgetProvider;
 
 import java.util.ArrayList;
@@ -223,7 +226,12 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         } else {
             tvWord.setText(word);
         }
-        tvPronounce.setText(String.format("/%s/", wordDetail.getPronunciation().getAll()));
+        if (wordDetail.getPronunciation() != null) {
+            tvPronounce.setText(String.format("/%s/", wordDetail.getPronunciation().getAll()));
+        } else {
+            tvPronounce.setVisibility(View.GONE);
+        }
+
         List<String> l = new ArrayList<String>(result.keySet());
 
         for (int i = 0; i < l.size(); i++) {
@@ -237,6 +245,19 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listview);
         progressBar.setVisibility(View.GONE);
         linearLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void error() {
+        progressBar.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.GONE);
+        tvErrorMsg.setVisibility(View.VISIBLE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().finish();
+            }
+        }, 500);
     }
 
 

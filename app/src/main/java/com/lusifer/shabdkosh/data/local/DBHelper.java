@@ -3,7 +3,6 @@ package com.lusifer.shabdkosh.data.local;
 import android.content.ContentResolver;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
-import android.text.TextUtils;
 
 import com.lusifer.shabdkosh.data.model.local.ModelType;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
@@ -99,12 +98,12 @@ public class DBHelper {
                         null);
 
                 List<RecentFavouriteModel> searchResults = new ArrayList<RecentFavouriteModel>();
-                if (!TextUtils.isEmpty(query)) {
-                    if (cursor != null) {
+
+                if (cursor != null && cursor.getCount() >= 1) {
                         cursor.moveToFirst();
                         do {
                             String data = cursor.getString(cursor.getColumnIndex("wordName"));
-                            if (data.toLowerCase().contains(query.toLowerCase())) {
+                            if (data.toLowerCase().contains(query.toLowerCase().trim())) {
                                 RecentFavouriteModel recentFavouriteModel = new
                                         RecentFavouriteModel(data);
                                 recentFavouriteModel.setmIsHistory(false);
@@ -114,10 +113,8 @@ public class DBHelper {
                         } while (cursor.moveToNext());
                     }
 
-                    return Observable.just(searchResults);
-                } else {
-                    return Observable.empty();
-                }
+                return Observable.just(searchResults);
+
             }
         });
     }

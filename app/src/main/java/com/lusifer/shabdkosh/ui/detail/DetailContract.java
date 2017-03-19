@@ -7,6 +7,8 @@ public interface DetailContract {
 
     interface View extends MvpView {
         void setWord(WordDetail wordDetail);
+
+        void error();
     }
 
     interface Presenter {

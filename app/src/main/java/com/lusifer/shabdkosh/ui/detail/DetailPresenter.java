@@ -1,5 +1,7 @@
 package com.lusifer.shabdkosh.ui.detail;
 
+import android.util.Log;
+
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.word.WordDetail;
 import com.lusifer.shabdkosh.ui.base.BasePresenter;
@@ -54,7 +56,8 @@ public class DetailPresenter extends BasePresenter<DetailContract.View> implemen
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, "onError: ", e);
+                        getMvpView().error();
                     }
 
                     @Override

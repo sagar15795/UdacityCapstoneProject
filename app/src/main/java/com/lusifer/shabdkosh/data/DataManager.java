@@ -12,7 +12,6 @@ import com.lusifer.shabdkosh.data.remote.BaseApiManager;
 import java.util.List;
 
 import rx.Observable;
-import rx.functions.Func0;
 import rx.functions.Func1;
 
 public class DataManager {
@@ -61,7 +60,8 @@ public class DataManager {
     }
 
     public Observable<SearchResult> getSearchHistory(String query) {
-        return mBaseApiManager.getWordApi().getSearchSuggestionWordList(String.format("^%s.{1}$",
+        return mBaseApiManager.getWordApi().getSearchSuggestionWordList(String.format
+                ("^%s[a-zA-Z]?$",
                 query));
     }
 
