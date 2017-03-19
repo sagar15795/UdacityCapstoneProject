@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
+import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
 import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class FavouriteFragment extends Fragment implements FavouriteContract.Vie
 
 
     FavouritePresenter mFavouritePresenter;
+    private List<RecentFavouriteModel> recentFavouriteModels;
 
     public static FavouriteFragment getInstance() {
         return new FavouriteFragment();
@@ -38,7 +40,8 @@ public class FavouriteFragment extends Fragment implements FavouriteContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFavouritePresenter = FavouritePresenter.getFavouritePresenter(DataManager.getDataManger());
+        mFavouritePresenter = FavouritePresenter.getFavouritePresenter(DataManager.getDataManger
+                (getActivity().getContentResolver()));
     }
 
     @Override
@@ -50,36 +53,38 @@ public class FavouriteFragment extends Fragment implements FavouriteContract.Vie
         ButterKnife.bind(this, rootView);
         mFavouritePresenter.attachView(this);
 
-        mRecentFavouriteAdapter = new RecentFavouriteAdapter(getTitle(), getPartOfSpeech());
-
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecentRecylerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 mRecentRecylerView.getContext(), layoutManager.getOrientation());
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
-        mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
+        mFavouritePresenter.getFavourite();
         return rootView;
     }
 
-    private List<String> getPartOfSpeech() {
+    private List<String> getPartOfSpeech(List<RecentFavouriteModel> recentFavouriteModels) {
         List<String> title = new ArrayList<>();
-        title.add("word1,word2");
-        title.add("word2,word2");
-        title.add("word3,word2");
-        title.add("word4,word2");
-        title.add("word5,word2");
+        for (int i = 0; i < recentFavouriteModels.size(); i++) {
+            title.add(recentFavouriteModels.get(i).getPartOfSpeech());
+        }
         return title;
 
     }
 
-    private List<String> getTitle() {
+    private List<String> getTitle(List<RecentFavouriteModel> recentFavouriteModels) {
+
         List<String> title = new ArrayList<>();
-        title.add("word1");
-        title.add("word2");
-        title.add("word3");
-        title.add("word4");
-        title.add("word5");
+        for (int i = 0; i < recentFavouriteModels.size(); i++) {
+            title.add(recentFavouriteModels.get(i).getWordName());
+        }
         return title;
     }
 
+    @Override
+    public void showFavourite(List<RecentFavouriteModel> recentFavouriteModels) {
+        this.recentFavouriteModels = recentFavouriteModels;
+        mRecentFavouriteAdapter = new RecentFavouriteAdapter(getTitle(recentFavouriteModels),
+                getPartOfSpeech(recentFavouriteModels));
+        mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
+    }
 }

@@ -4,10 +4,15 @@ package com.lusifer.shabdkosh.data;
 import android.content.ContentResolver;
 
 import com.lusifer.shabdkosh.data.local.DBHelper;
-import com.lusifer.shabdkosh.data.model.WordDetail;
+import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
+import com.lusifer.shabdkosh.data.model.search.SearchResult;
+import com.lusifer.shabdkosh.data.model.word.WordDetail;
 import com.lusifer.shabdkosh.data.remote.BaseApiManager;
 
+import java.util.List;
+
 import rx.Observable;
+import rx.functions.Func0;
 import rx.functions.Func1;
 
 public class DataManager {
@@ -55,5 +60,20 @@ public class DataManager {
                 });
     }
 
+    public Observable<SearchResult> getSearchHistory(String query) {
+        return mBaseApiManager.getWordApi().getSearchSuggestionWordList(String.format("^%s.{1}$",
+                query));
+    }
 
+    public Observable<List<RecentFavouriteModel>> getSearchHistoryFromDB(String query) {
+        return dbHelper.getRecent(query);
+    }
+
+    public Observable<List<RecentFavouriteModel>> getRecent() {
+        return dbHelper.getRecent();
+    }
+
+    public Observable<List<RecentFavouriteModel>> getFavourite() {
+        return dbHelper.getFavourite();
+    }
 }

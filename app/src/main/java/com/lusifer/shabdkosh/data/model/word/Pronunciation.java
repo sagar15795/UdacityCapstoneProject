@@ -1,4 +1,4 @@
-package com.lusifer.shabdkosh.data.model;
+package com.lusifer.shabdkosh.data.model.word;
 
 import com.google.gson.annotations.SerializedName;
 

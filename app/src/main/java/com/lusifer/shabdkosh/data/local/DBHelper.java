@@ -1,19 +1,26 @@
 package com.lusifer.shabdkosh.data.local;
 
 import android.content.ContentResolver;
+import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 
-import com.lusifer.shabdkosh.data.model.Result;
-import com.lusifer.shabdkosh.data.model.WordDetail;
 import com.lusifer.shabdkosh.data.model.local.ModelType;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel_Table;
+import com.lusifer.shabdkosh.data.model.word.Result;
+import com.lusifer.shabdkosh.data.model.word.WordDetail;
+import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
+import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.provider.ContentUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import rx.Observable;
+import rx.functions.Func0;
 
 
 public class DBHelper {
@@ -80,5 +87,80 @@ public class DBHelper {
                     recentFavouriteModel);
         }
 
+    }
+
+
+    public Observable<List<RecentFavouriteModel>> getRecent(final String query) {
+        return Observable.defer(new Func0<Observable<List<RecentFavouriteModel>>>() {
+            @Override
+            public Observable<List<RecentFavouriteModel>> call() {
+                Cursor cursor = ContentUtils.query(contentResolver,
+                        RecentFavouriteModel.CONTENT_URI, ConditionGroup.clause(
+                                RecentFavouriteModel_Table.modelType.eq(ModelType.RECENT)), null,
+                        null);
+
+                List<RecentFavouriteModel> searchResults = new ArrayList<RecentFavouriteModel>();
+                if (!TextUtils.isEmpty(query)) {
+                    if (cursor != null) {
+                        cursor.moveToFirst();
+                        do {
+                            String data = cursor.getString(cursor.getColumnIndex("wordName"));
+                            if (data.toLowerCase().contains(query.toLowerCase())) {
+                                RecentFavouriteModel recentFavouriteModel = new
+                                        RecentFavouriteModel(data);
+                                recentFavouriteModel.setmIsHistory(false);
+                                searchResults.add(recentFavouriteModel);
+                            }
+
+                        } while (cursor.moveToNext());
+                    }
+
+                    return Observable.just(searchResults);
+                } else {
+                    return Observable.empty();
+                }
+            }
+        });
+    }
+
+
+    public Observable<List<RecentFavouriteModel>> getRecent() {
+        return Observable.defer(new Func0<Observable<List<RecentFavouriteModel>>>() {
+            @Override
+            public Observable<List<RecentFavouriteModel>> call() {
+
+                List<RecentFavouriteModel> searchResults = SQLite.select()
+                        .from(RecentFavouriteModel.class)
+                        .where(RecentFavouriteModel_Table.modelType.eq(ModelType.RECENT))
+                        .queryList();
+
+                if (searchResults != null && !searchResults.isEmpty()) {
+
+                    return Observable.just(searchResults);
+                } else {
+                    return Observable.empty();
+                }
+            }
+        });
+    }
+
+    public Observable<List<RecentFavouriteModel>> getFavourite() {
+        return Observable.defer(new Func0<Observable<List<RecentFavouriteModel>>>() {
+            @Override
+            public Observable<List<RecentFavouriteModel>> call() {
+
+                List<RecentFavouriteModel> searchResults = SQLite.select()
+                        .from(RecentFavouriteModel.class)
+                        .where(RecentFavouriteModel_Table.modelType.eq(ModelType.FAVOURITE))
+                        .queryList();
+
+                if (searchResults != null && !searchResults.isEmpty()) {
+
+                    return Observable.just(searchResults);
+                } else {
+                    return Observable.empty();
+                }
+            }
+        });
     }
 }

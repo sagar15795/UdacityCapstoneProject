@@ -1,6 +1,6 @@
 package com.lusifer.shabdkosh.ui.detail;
 
-import com.lusifer.shabdkosh.data.model.WordDetail;
+import com.lusifer.shabdkosh.data.model.word.WordDetail;
 import com.lusifer.shabdkosh.ui.base.MvpView;
 
 public interface DetailContract {

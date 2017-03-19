@@ -1,5 +1,7 @@
 package com.lusifer.shabdkosh.ui.detail;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -20,8 +22,9 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
-import com.lusifer.shabdkosh.data.model.Result;
-import com.lusifer.shabdkosh.data.model.WordDetail;
+import com.lusifer.shabdkosh.data.model.word.Result;
+import com.lusifer.shabdkosh.data.model.word.WordDetail;
+import com.lusifer.shabdkosh.ui.widget.WidgetProvider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,11 +58,13 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     DetailPresenter mDetailPresenter;
     LayoutInflater inflater;
 
+    private static final String ARGS_WORD = "args_word";
+    private String word;
 
-    public static DetailFragment newInstance() {
+    public static DetailFragment newInstance(String word) {
 
         Bundle args = new Bundle();
-
+        args.putString(ARGS_WORD, word);
         DetailFragment fragment = new DetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -68,6 +73,11 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            word = getArguments().getString(ARGS_WORD);
+        } else {
+            getActivity().finish();
+        }
         mDetailPresenter = DetailPresenter.getDetailPresenter(DataManager.getDataManger
                 (getActivity().getContentResolver()));
 
@@ -87,8 +97,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mDetailPresenter.getWord("wait");
-        toolbar.setTitle("HELLO");
+        mDetailPresenter.getWord(word);
+        toolbar.setTitle(word);
         ((DetailActivity) getActivity()).setSupportActionBar(toolbar);
 
         if (((DetailActivity) getActivity()).getSupportActionBar() != null) {
@@ -122,7 +132,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
                     flexboxLayoutSynonyms.addView(textView);
 
-                    Spannable word = new SpannableString(synonyms.get(i - 1));
+                    final Spannable word = new SpannableString(synonyms.get(i - 1));
 
                     word.setSpan(new ForegroundColorSpan(Color.BLUE), 0, word.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -139,6 +149,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
                         @Override
                         public void onClick(View view) {
                             Intent intent = new Intent(getActivity(), DetailActivity.class);
+                            intent.putExtra(DetailActivity.WORD_EXTRA, word.toString());
                             ((DetailActivity) getActivity()).startActivity(intent);
                         }
                     });
@@ -206,6 +217,10 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }
 
 
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getContext());
+        int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
+                new ComponentName(getContext(), WidgetProvider.class));
+        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listview);
     }
 
 

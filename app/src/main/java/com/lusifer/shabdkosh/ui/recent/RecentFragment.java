@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
+import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
 import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
 import com.lusifer.shabdkosh.ui.detail.DetailActivity;
 import com.lusifer.shabdkosh.utils.RecyclerItemClickListner;
@@ -32,6 +33,7 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     RecentPresenter mRecentPresenter;
 
     RecentFavouriteAdapter mRecentFavouriteAdapter;
+    List<RecentFavouriteModel> recentFavouriteModels;
 
     public static RecentFragment getInstance() {
         return new RecentFragment();
@@ -40,7 +42,8 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mRecentPresenter = RecentPresenter.getRecentPresenter(DataManager.getDataManger());
+        mRecentPresenter = RecentPresenter.getRecentPresenter(DataManager.getDataManger(
+                getActivity().getContentResolver()));
     }
 
     @Override
@@ -51,7 +54,6 @@ public class RecentFragment extends Fragment implements RecentContract.View,
         ButterKnife.bind(this, rootView);
         mRecentPresenter.attachView(this);
 
-        mRecentFavouriteAdapter = new RecentFavouriteAdapter(getTitle(), getPartOfSpeech());
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecentRecylerView.setLayoutManager(layoutManager);
@@ -60,29 +62,25 @@ public class RecentFragment extends Fragment implements RecentContract.View,
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
         mRecentRecylerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(),
                 this));
-        mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
-
+        mRecentPresenter.getRecent();
         return rootView;
     }
 
-    private List<String> getPartOfSpeech() {
+    private List<String> getPartOfSpeech(List<RecentFavouriteModel> recentFavouriteModels) {
         List<String> title = new ArrayList<>();
-        title.add("word1,word2");
-        title.add("word2,word2");
-        title.add("word3,word2");
-        title.add("word4,word2");
-        title.add("word5,word2");
+        for (int i = 0; i < recentFavouriteModels.size(); i++) {
+            title.add(recentFavouriteModels.get(i).getPartOfSpeech());
+        }
         return title;
 
     }
 
-    private List<String> getTitle() {
+    private List<String> getTitle(List<RecentFavouriteModel> recentFavouriteModels) {
+
         List<String> title = new ArrayList<>();
-        title.add("word1");
-        title.add("word2");
-        title.add("word3");
-        title.add("word4");
-        title.add("word5");
+        for (int i = 0; i < recentFavouriteModels.size(); i++) {
+            title.add(recentFavouriteModels.get(i).getWordName());
+        }
         return title;
     }
 
@@ -90,6 +88,8 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     @Override
     public void onItemClick(View childView, int position) {
         Intent intent = new Intent(getActivity(), DetailActivity.class);
+        intent.putExtra(DetailActivity.WORD_EXTRA, recentFavouriteModels.get(position)
+                .getWordName());
         startActivity(intent);
     }
 
@@ -99,4 +99,11 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     }
 
 
+    @Override
+    public void showRecent(List<RecentFavouriteModel> recentFavouriteModels) {
+        this.recentFavouriteModels = recentFavouriteModels;
+        mRecentFavouriteAdapter = new RecentFavouriteAdapter(getTitle(recentFavouriteModels),
+                getPartOfSpeech(recentFavouriteModels));
+        mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
+    }
 }
