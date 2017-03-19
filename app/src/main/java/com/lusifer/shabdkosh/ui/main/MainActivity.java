@@ -64,8 +64,8 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
 
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
 
-        mViewPagerAdapter.addFragment(RecentFragment.getInstance(), "Recent");
-        mViewPagerAdapter.addFragment(FavouriteFragment.getInstance(), "Favourite");
+        mViewPagerAdapter.addFragment(RecentFragment.getInstance(), getString(R.string.tab_recent));
+        mViewPagerAdapter.addFragment(FavouriteFragment.getInstance(), getString(R.string.tab_favourite));
 
         mViewPager.setAdapter(mViewPagerAdapter);
 

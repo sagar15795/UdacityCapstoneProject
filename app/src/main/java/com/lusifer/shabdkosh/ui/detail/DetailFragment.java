@@ -138,10 +138,12 @@ public class DetailFragment extends Fragment implements DetailContract.View, Vie
                 .detail_data_partofspeech);
         tvId = ButterKnife.findById(contentDetailPartOfSpeechData, R.id.tvId);
         tvId.setText(String.format(getString(R.string.string_id), id));
+        tvId.setContentDescription(String.format(getString(R.string.string_id), id));
 
         tvWordDescription = ButterKnife.findById(contentDetailPartOfSpeechData, R.id
                 .tvWordDescription);
         tvWordDescription.setText(description);
+        tvWordDescription.setContentDescription(description);
 
         flexboxLayoutSynonyms = ButterKnife.findById(contentDetailPartOfSpeechData, R.id
                 .flSynonyms);
@@ -157,6 +159,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Vie
                     word.setSpan(new ForegroundColorSpan(Color.BLUE), 0, word.length(),
                             Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     textView.setText(word);
+                    textView.setContentDescription(word);
 
                     if (i != synonyms.size()) {
                         Spannable wordTwo = new SpannableString(",");
@@ -197,6 +200,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Vie
                 null);
         tvPartOfSpeech = ButterKnife.findById(contentDetailPartOfSpeech, R.id.tvPartOfSpeech);
         tvPartOfSpeech.setText(results.get(0).getPartOfSpeech());
+        tvPartOfSpeech.setContentDescription(results.get(0).getPartOfSpeech());
         vContentDetailPartOfSpeechData = ButterKnife.findById(contentDetailPartOfSpeech,
                 R.id.vContentDetailPartOfSpeechData);
 
@@ -220,6 +224,7 @@ public class DetailFragment extends Fragment implements DetailContract.View, Vie
 
         HashMap<String, List<Result>> result = getGroupedResult(wordDetail.getResults());
         String string = "";
+        tvWord.setContentDescription(word);
         if (wordDetail.getSyllables() != null) {
             for (int i = 0; i < wordDetail.getSyllables().getList().size(); i++) {
                 if (i != wordDetail.getSyllables().getList().size() - 1) {
@@ -229,11 +234,14 @@ public class DetailFragment extends Fragment implements DetailContract.View, Vie
                 }
             }
             tvWord.setText(string);
+
         } else {
             tvWord.setText(word);
         }
         if (wordDetail.getPronunciation() != null) {
             tvPronounce.setText(String.format("/%s/", wordDetail.getPronunciation().getAll()));
+            tvPronounce.setContentDescription(String.format("/%s/", wordDetail.getPronunciation()
+                    .getAll()));
         } else {
             tvPronounce.setVisibility(View.GONE);
         }

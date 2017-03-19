@@ -7,4 +7,6 @@
     <string name="text_no_recent">No Recent Word Found!!!</string>
     <string name="no_favourite_word_found">No Favourite Word Found!!!</string>
     <string name="something_went_wrong">Something went wrong!!!</string>
+    <string name="tab_recent">Recent</string>
+    <string name="tab_favourite">Favourite</string>
 </resources>

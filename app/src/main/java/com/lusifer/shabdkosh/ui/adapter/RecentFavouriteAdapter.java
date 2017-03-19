@@ -43,7 +43,9 @@ public class RecentFavouriteAdapter extends RecyclerView.Adapter<RecentFavourite
     public void onBindViewHolder(ViewHolder holder, int position) {
         if (holder != null) {
             holder.tvWordTitle.setText(mTitleList.get(position));
+            holder.tvWordTitle.setContentDescription(mTitleList.get(position));
             holder.tvPartOfSpeech.setText(mPartOfSpeechList.get(position));
+            holder.tvPartOfSpeech.setContentDescription(mPartOfSpeechList.get(position));
         }
 
     }
