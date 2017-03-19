@@ -13,9 +13,11 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +48,15 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
+
+    @BindView(R.id.container)
+    LinearLayout linearLayout;
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.tvErrorMsg)
+    TextView tvErrorMsg;
 
     TextView tvPartOfSpeech;
     LinearLayout vContentDetailPartOfSpeechData;
@@ -200,20 +211,23 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
         HashMap<String, List<Result>> result = getGroupedResult(wordDetail.getResults());
         String string = "";
-        for (int i = 0; i < wordDetail.getSyllables().getList().size(); i++) {
-            if (i != wordDetail.getSyllables().getList().size() - 1) {
-                string += wordDetail.getSyllables().getList().get(i) + "\u00B7";
-            } else {
-                string += wordDetail.getSyllables().getList().get(i);
+        if (wordDetail.getSyllables() != null) {
+            for (int i = 0; i < wordDetail.getSyllables().getList().size(); i++) {
+                if (i != wordDetail.getSyllables().getList().size() - 1) {
+                    string += wordDetail.getSyllables().getList().get(i) + "\u00B7";
+                } else {
+                    string += wordDetail.getSyllables().getList().get(i);
+                }
             }
+            tvWord.setText(string);
+        } else {
+            tvWord.setText(word);
         }
-        tvWord.setText(string);
         tvPronounce.setText(String.format("/%s/", wordDetail.getPronunciation().getAll()));
         List<String> l = new ArrayList<String>(result.keySet());
 
-        for (int i = 0; i < l.size(); i = i + 2) {
+        for (int i = 0; i < l.size(); i++) {
             vDetailPartOfSpeech.addView(getContentDetailPartOfSpeech(result.get(l.get(i))));
-            vDetailPartOfSpeech.addView(getContentDetailPartOfSpeech(result.get(l.get(i + 1))));
         }
 
 
@@ -221,6 +235,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         int appWidgetIds[] = appWidgetManager.getAppWidgetIds(
                 new ComponentName(getContext(), WidgetProvider.class));
         appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.listview);
+        progressBar.setVisibility(View.GONE);
+        linearLayout.setVisibility(View.VISIBLE);
     }
 
 
