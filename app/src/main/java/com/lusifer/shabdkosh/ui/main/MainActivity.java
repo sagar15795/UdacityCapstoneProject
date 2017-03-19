@@ -17,6 +17,9 @@ import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
@@ -46,9 +49,14 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
+    @BindView(R.id.adView)
+    AdView mAdView;
+
     private MainPresenter mMainPresenter;
     private ViewPagerAdapter mViewPagerAdapter;
     private List<RecentFavouriteModel> recentFavouriteModelsSearch;
+    private FirebaseAnalytics mFirebaseAnalytics;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mMainPresenter = MainPresenter.getMainPresenter(DataManager.getDataManger
                 (getContentResolver()));
         mMainPresenter.attachView(this);
@@ -74,7 +83,8 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
         mFloatingSearchView.setOnQueryChangeListener(this);
         mFloatingSearchView.setOnSearchListener(this);
         mFloatingSearchView.setOnBindSuggestionCallback(this);
-
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -85,6 +95,11 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
             hideSearchViewProgress();
         } else {
             mMainPresenter.getSearchResultDB(newQuery);
+
+            Bundle bundle =new Bundle();
+            bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "Search Word");
+            bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, newQuery);
+            mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
         }
     }
 
