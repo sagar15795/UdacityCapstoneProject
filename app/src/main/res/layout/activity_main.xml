@@ -45,6 +45,7 @@
             android:id="@+id/floating_search_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:contentDescription="@string/content_desc_search"
             app:floatingSearch_close_search_on_keyboard_dismiss="false"
             app:floatingSearch_dimBackground="false"
             app:floatingSearch_dismissOnOutsideTouch="true"
@@ -52,7 +53,7 @@
             app:floatingSearch_searchBarMarginLeft="@dimen/search_view_inset"
             app:floatingSearch_searchBarMarginRight="@dimen/search_view_inset"
             app:floatingSearch_searchBarMarginTop="@dimen/search_view_inset"
-            app:floatingSearch_searchHint="Search..."
+            app:floatingSearch_searchHint="@string/search_hint"
             app:floatingSearch_showSearchKey="true"
             app:floatingSearch_suggestionsListAnimDuration="250"/>
 </RelativeLayout>
