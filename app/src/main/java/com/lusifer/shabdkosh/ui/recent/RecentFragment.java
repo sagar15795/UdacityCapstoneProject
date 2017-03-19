@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
@@ -29,6 +31,12 @@ public class RecentFragment extends Fragment implements RecentContract.View,
 
     @BindView(R.id.rvRecentList)
     RecyclerView mRecentRecylerView;
+
+    @BindView(R.id.progressbar)
+    ProgressBar progressBar;
+
+    @BindView(R.id.tvNoRecent)
+    TextView tvNoRecentMsg;
 
     RecentPresenter mRecentPresenter;
 
@@ -105,5 +113,13 @@ public class RecentFragment extends Fragment implements RecentContract.View,
         mRecentFavouriteAdapter = new RecentFavouriteAdapter(getTitle(recentFavouriteModels),
                 getPartOfSpeech(recentFavouriteModels));
         mRecentRecylerView.setAdapter(mRecentFavouriteAdapter);
+        progressBar.setVisibility(View.GONE);
+        if (this.recentFavouriteModels.isEmpty()) {
+            tvNoRecentMsg.setVisibility(View.VISIBLE);
+        } else {
+            mRecentRecylerView.setVisibility(View.VISIBLE);
+        }
     }
+
+
 }

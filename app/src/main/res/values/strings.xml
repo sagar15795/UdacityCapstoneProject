@@ -4,4 +4,6 @@
     <string name="string_id">%d.</string>
     <string name="search_hint">Search...</string>
     <string name="content_desc_search">Search the word to get its mean</string>
+    <string name="text_no_recent">No Recent Word Found!!!</string>
+    <string name="no_favourite_word_found">No Favourite Word Found!!!</string>
 </resources>

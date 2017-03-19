@@ -1,5 +1,7 @@
 package com.lusifer.shabdkosh.ui.favourite;
 
+import android.util.Log;
+
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
 import com.lusifer.shabdkosh.ui.base.BasePresenter;
@@ -54,12 +56,12 @@ public class FavouritePresenter extends BasePresenter<FavouriteContract.View> im
                 .subscribe(new Observer<List<RecentFavouriteModel>>() {
                     @Override
                     public void onCompleted() {
-
+                        Log.d(TAG, "onCompleted: ");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.d(TAG, "onError: ");
                     }
 
                     @Override

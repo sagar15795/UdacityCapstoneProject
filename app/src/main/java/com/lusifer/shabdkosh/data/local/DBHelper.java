@@ -12,7 +12,6 @@ import com.lusifer.shabdkosh.data.model.word.Result;
 import com.lusifer.shabdkosh.data.model.word.WordDetail;
 import com.raizlabs.android.dbflow.sql.language.ConditionGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
-import com.raizlabs.android.dbflow.sql.language.Select;
 import com.raizlabs.android.dbflow.structure.provider.ContentUtils;
 
 import java.util.ArrayList;
@@ -134,12 +133,8 @@ public class DBHelper {
                         .where(RecentFavouriteModel_Table.modelType.eq(ModelType.RECENT))
                         .queryList();
 
-                if (searchResults != null && !searchResults.isEmpty()) {
+                return Observable.just(searchResults);
 
-                    return Observable.just(searchResults);
-                } else {
-                    return Observable.empty();
-                }
             }
         });
     }
@@ -154,12 +149,7 @@ public class DBHelper {
                         .where(RecentFavouriteModel_Table.modelType.eq(ModelType.FAVOURITE))
                         .queryList();
 
-                if (searchResults != null && !searchResults.isEmpty()) {
-
-                    return Observable.just(searchResults);
-                } else {
-                    return Observable.empty();
-                }
+                return Observable.just(searchResults);
             }
         });
     }
