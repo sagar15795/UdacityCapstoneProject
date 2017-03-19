@@ -87,6 +87,38 @@ public class DBHelper {
 
     }
 
+    public Observable<Boolean> saveInFavourite(@NonNull RecentFavouriteModel favouriteModel) {
+        RecentFavouriteModel recentFavouriteModel = SQLite.select()
+                .from(RecentFavouriteModel.class)
+                .where(RecentFavouriteModel_Table.wordName.eq(favouriteModel.getWordName()))
+                .and(RecentFavouriteModel_Table.modelType.eq(ModelType.FAVOURITE))
+                .querySingle();
+
+        if (recentFavouriteModel == null) {
+            ContentUtils.insert(contentResolver, RecentFavouriteModel.CONTENT_URI,
+                    favouriteModel);
+            return Observable.just(true);
+        } else {
+            ContentUtils.delete(contentResolver, RecentFavouriteModel.CONTENT_URI,
+                    recentFavouriteModel);
+            return Observable.just(false);
+        }
+    }
+
+    public Observable<Boolean> isFavourite(String word) {
+        RecentFavouriteModel recentFavouriteModel = SQLite.select()
+                .from(RecentFavouriteModel.class)
+                .where(RecentFavouriteModel_Table.wordName.eq(word))
+                .and(RecentFavouriteModel_Table.modelType.eq(ModelType.FAVOURITE))
+                .querySingle();
+
+        if (recentFavouriteModel == null) {
+            return Observable.just(false);
+        } else {
+            return Observable.just(true);
+        }
+    }
+
 
     public Observable<List<RecentFavouriteModel>> getRecent(final String query) {
         return Observable.defer(new Func0<Observable<List<RecentFavouriteModel>>>() {

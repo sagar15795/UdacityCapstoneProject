@@ -123,6 +123,7 @@ public class RecentFragment extends Fragment implements RecentContract.View,
             tvNoRecentMsg.setVisibility(View.VISIBLE);
         } else {
             mRecentRecylerView.setVisibility(View.VISIBLE);
+            tvNoRecentMsg.setVisibility(View.GONE);
         }
     }
 

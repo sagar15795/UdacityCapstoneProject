@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
@@ -24,6 +26,8 @@ import android.widget.TextView;
 import com.google.android.flexbox.FlexboxLayout;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
+import com.lusifer.shabdkosh.data.model.local.ModelType;
+import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
 import com.lusifer.shabdkosh.data.model.word.Result;
 import com.lusifer.shabdkosh.data.model.word.WordDetail;
 import com.lusifer.shabdkosh.ui.widget.WidgetProvider;
@@ -35,7 +39,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DetailFragment extends Fragment implements DetailContract.View {
+public class DetailFragment extends Fragment implements DetailContract.View, View.OnClickListener {
 
     @BindView(R.id.tvWord)
     TextView tvWord;
@@ -58,6 +62,9 @@ public class DetailFragment extends Fragment implements DetailContract.View {
     @BindView(R.id.tvErrorMsg)
     TextView tvErrorMsg;
 
+    @BindView(R.id.fab)
+    FloatingActionButton floatingActionButton;
+
     TextView tvPartOfSpeech;
     LinearLayout vContentDetailPartOfSpeechData;
     TextView tvId;
@@ -71,6 +78,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
     private static final String ARGS_WORD = "args_word";
     private String word;
+    private String partOfSpeech;
 
     public static DetailFragment newInstance(String word) {
 
@@ -118,6 +126,7 @@ public class DetailFragment extends Fragment implements DetailContract.View {
 
         inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
+        floatingActionButton.setOnClickListener(this);
     }
 
 
@@ -259,6 +268,22 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         }, 500);
     }
 
+    @Override
+    public void favError() {
+        Snackbar.make(linearLayout, getString(R.string.something_went_wrong), Snackbar.LENGTH_SHORT)
+                .show();
+    }
+
+    @Override
+    public void setIcon(Boolean aBoolean) {
+        floatingActionButton.setVisibility(View.VISIBLE);
+        if (!aBoolean) {
+            floatingActionButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+        } else {
+            floatingActionButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+        }
+    }
+
 
     private HashMap<String, List<Result>> getGroupedResult(List<Result> resultList) {
         HashMap<String, List<Result>> hashMap = new HashMap<String, List<Result>>();
@@ -272,8 +297,28 @@ public class DetailFragment extends Fragment implements DetailContract.View {
                 hashMap.get(resultList.get(i).getPartOfSpeech()).add(resultList.get(i));
             }
         }
+        partOfSpeech = hashMap.keySet().toString().substring(1, hashMap.keySet().toString().length()
+                - 1);
+
         return hashMap;
     }
 
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mDetailPresenter.detachView();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.fab:
+                RecentFavouriteModel favouriteModel = new RecentFavouriteModel(word);
+                favouriteModel.setPartOfSpeech(partOfSpeech);
+                favouriteModel.setModelType(ModelType.FAVOURITE);
+                mDetailPresenter.saveWord(favouriteModel);
+                break;
+        }
+    }
 }

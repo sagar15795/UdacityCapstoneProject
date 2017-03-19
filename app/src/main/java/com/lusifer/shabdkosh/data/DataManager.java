@@ -11,6 +11,7 @@ import com.lusifer.shabdkosh.data.remote.BaseApiManager;
 
 import java.util.List;
 
+import rx.Completable;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -76,4 +77,13 @@ public class DataManager {
     public Observable<List<RecentFavouriteModel>> getFavourite() {
         return dbHelper.getFavourite();
     }
+
+    public Observable<Boolean> toggleFavourite(RecentFavouriteModel recentFavouriteModel) {
+        return dbHelper.saveInFavourite(recentFavouriteModel);
+    }
+
+    public Observable<Boolean> isFavourite(String word) {
+        return dbHelper.isFavourite(word);
+    }
+
 }
