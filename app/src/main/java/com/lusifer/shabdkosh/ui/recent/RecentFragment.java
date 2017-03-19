@@ -70,8 +70,13 @@ public class RecentFragment extends Fragment implements RecentContract.View,
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
         mRecentRecylerView.addOnItemTouchListener(new RecyclerItemClickListner(getActivity(),
                 this));
-        mRecentPresenter.getRecent();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mRecentPresenter.getRecent();
     }
 
     private List<String> getPartOfSpeech(List<RecentFavouriteModel> recentFavouriteModels) {

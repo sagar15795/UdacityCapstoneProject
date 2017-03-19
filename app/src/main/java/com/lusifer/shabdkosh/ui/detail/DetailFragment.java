@@ -14,7 +14,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -27,8 +26,6 @@ import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
 import com.lusifer.shabdkosh.data.model.word.Result;
 import com.lusifer.shabdkosh.data.model.word.WordDetail;
-import com.lusifer.shabdkosh.ui.SplashActivity;
-import com.lusifer.shabdkosh.ui.main.MainActivity;
 import com.lusifer.shabdkosh.ui.widget.WidgetProvider;
 
 import java.util.ArrayList;
@@ -92,8 +89,8 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         } else {
             getActivity().finish();
         }
-        mDetailPresenter = DetailPresenter.getDetailPresenter(DataManager.getDataManger
-                (getActivity().getContentResolver()));
+        mDetailPresenter = DetailPresenter.getDetailPresenter(DataManager.getDataManger(
+                getActivity().getContentResolver()));
 
     }
 
@@ -255,7 +252,9 @@ public class DetailFragment extends Fragment implements DetailContract.View {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                getActivity().finish();
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
             }
         }, 500);
     }

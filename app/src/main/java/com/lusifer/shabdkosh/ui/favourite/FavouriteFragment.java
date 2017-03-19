@@ -67,8 +67,13 @@ public class FavouriteFragment extends Fragment implements FavouriteContract.Vie
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
                 mRecentRecylerView.getContext(), layoutManager.getOrientation());
         mRecentRecylerView.addItemDecoration(dividerItemDecoration);
-        mFavouritePresenter.getFavourite();
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mFavouritePresenter.getFavourite();
     }
 
     private List<String> getPartOfSpeech(List<RecentFavouriteModel> recentFavouriteModels) {
