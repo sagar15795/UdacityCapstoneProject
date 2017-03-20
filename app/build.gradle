@@ -38,6 +38,7 @@ android {
         }
         buildTypes.each {
             it.buildConfigField 'String', 'API_KEY', "\"" + getApiKey() + "\""
+            it.resValue 'string', 'banner_ad_unit_id', "\"" + getAdMobKey() + "\""
         }
     }
     lintOptions {
@@ -145,4 +146,9 @@ def getApiKey() {
     return props['API_KEY']
 }
 
+def getAdMobKey() {
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('secrets.properties')))
+    return props['banner_ad_unit_id']
+}
 apply plugin: 'com.google.gms.google-services'
