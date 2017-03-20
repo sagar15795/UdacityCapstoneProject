@@ -9,5 +9,6 @@
     <string name="something_went_wrong">Something went wrong!!!</string>
     <string name="tab_recent">Recent</string>
     <string name="tab_favourite">Favourite</string>
+    <string name="error_text_not_load">Wait for Loading the Data</string>
 
 </resources>

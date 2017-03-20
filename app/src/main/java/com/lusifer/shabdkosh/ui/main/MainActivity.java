@@ -4,6 +4,7 @@ package com.lusifer.shabdkosh.ui.main;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
@@ -12,6 +13,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
@@ -138,9 +140,13 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
     @Override
     public void onSearchAction(String currentQuery) {
         Intent intent = new Intent(this, DetailActivity.class);
-        intent.putExtra(DetailActivity.WORD_EXTRA, recentFavouriteModelsSearch.get(
-                recentFavouriteModelsSearch.size() - 1).getBody());
-        startActivity(intent);
+        if(!recentFavouriteModelsSearch.isEmpty()) {
+            intent.putExtra(DetailActivity.WORD_EXTRA, recentFavouriteModelsSearch.get(
+                    recentFavouriteModelsSearch.size() - 1).getBody());
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, R.string.error_text_not_load, Toast.LENGTH_SHORT).show();
+        }
     }
 
 
