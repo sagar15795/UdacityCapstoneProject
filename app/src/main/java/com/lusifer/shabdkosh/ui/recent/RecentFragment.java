@@ -1,12 +1,17 @@
 package com.lusifer.shabdkosh.ui.recent;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +20,9 @@ import android.widget.TextView;
 
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
+import com.lusifer.shabdkosh.data.model.local.ModelType;
 import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel;
+import com.lusifer.shabdkosh.data.model.local.RecentFavouriteModel_Table;
 import com.lusifer.shabdkosh.ui.adapter.RecentFavouriteAdapter;
 import com.lusifer.shabdkosh.ui.detail.DetailActivity;
 import com.lusifer.shabdkosh.utils.RecyclerItemClickListner;
@@ -27,8 +34,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class RecentFragment extends Fragment implements RecentContract.View,
-        RecyclerItemClickListner.OnItemClickListener {
+        RecyclerItemClickListner.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
 
+    private static final String TAG = RecentFragment.class.getSimpleName();
     @BindView(R.id.rvRecentList)
     RecyclerView mRecentRecylerView;
 
@@ -76,6 +84,7 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     @Override
     public void onResume() {
         super.onResume();
+        getActivity().getSupportLoaderManager().initLoader(0, null, this);
         mRecentPresenter.getRecent();
     }
 
@@ -128,4 +137,30 @@ public class RecentFragment extends Fragment implements RecentContract.View,
     }
 
 
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        CursorLoader loader = new CursorLoader(getContext(), RecentFavouriteModel.CONTENT_URI,
+                null, RecentFavouriteModel_Table.modelType + "=?", new String[]{String.valueOf
+                (ModelType.RECENT)}, null);
+        return loader;
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.d(TAG, "onLoadFinished: " + cursor.getCount());
+
+        if (cursor != null && cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            Log.d(TAG, "onLoadFinished: " + cursor.getString(cursor.getColumnIndex("wordName")));
+            Log.d(TAG, "onLoadFinished: " + cursor.getString(
+                    cursor.getColumnIndex("partOfSpeech")));
+
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
 }
