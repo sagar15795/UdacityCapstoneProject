@@ -1,4 +1,4 @@
-#How to build it?
+# How to build it?
 
 ## NOTE: Please disable instant Run before building the project 
 - Add Google Service json
