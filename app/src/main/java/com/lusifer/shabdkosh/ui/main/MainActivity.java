@@ -4,7 +4,6 @@ package com.lusifer.shabdkosh.ui.main;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.view.ViewPager;
@@ -19,8 +18,7 @@ import com.arlib.floatingsearchview.FloatingSearchView;
 import com.arlib.floatingsearchview.suggestions.SearchSuggestionsAdapter;
 import com.arlib.floatingsearchview.suggestions.model.SearchSuggestion;
 import com.arlib.floatingsearchview.util.Util;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.lusifer.shabdkosh.R;
 import com.lusifer.shabdkosh.data.DataManager;
@@ -51,8 +49,6 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
-    @BindView(R.id.adView)
-    AdView mAdView;
 
     private MainPresenter mMainPresenter;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -85,8 +81,6 @@ public class MainActivity extends AppCompatActivity implements MainContracts.Vie
         mFloatingSearchView.setOnQueryChangeListener(this);
         mFloatingSearchView.setOnSearchListener(this);
         mFloatingSearchView.setOnBindSuggestionCallback(this);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 
     @Override
