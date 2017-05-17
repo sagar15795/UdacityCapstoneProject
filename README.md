@@ -1,6 +1,8 @@
-# How to build it?
+# Shabdkosh
 
-## NOTE: Please disable instant Run before building the project 
+## How to build it?
+
+### NOTE: Please disable instant Run before building the project 
 - Add Google Service json
 - Add `secrets.properties` file in root of the project
 ````
