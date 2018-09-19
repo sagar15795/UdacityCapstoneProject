@@ -22,7 +22,7 @@
         <provider
             android:name=".data.local.ShabdkoshDatabase_Provider"
             android:authorities="com.lusifer.shabdkosh"
-            android:exported="true"/>
+            android:exported="false"/>
 
         <receiver
             android:name=".ui.widget.WidgetProvider"
