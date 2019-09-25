@@ -14,3 +14,5 @@ for API_KEY  https://market.mashape.com/wordsapi/wordsapi#pronunciation
 for banner_ad_unit_id, signup in AdMob
 
 ### NOTE: Please disable instant Run before building the project 
+
+Update change
