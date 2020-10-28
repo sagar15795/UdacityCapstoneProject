@@ -1,4 +1,4 @@
-# Shabdkosh
+# Shabdkosh (Udacity Capston Project)
 
 ## How to build it?
 
